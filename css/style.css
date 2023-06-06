@@ -1,0 +1,243 @@
+/*全体共通
+最初から設定してあるので特に変更
+しなくても大丈夫です♪
+-----------------*/
+
+@font-face {
+  font-family: "MyKokoro";
+  src: url("./../font/Kokoro.eot");
+  /* IE9 Compat Modes */
+  src: url("./../font/Kokoro.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./../font/Kokoro.otf") format("opentype");
+  /* Safari, Android, iOS */
+}
+
+body {
+  font-family: Garamond, "MyKokoro", serif;
+  src: url("https://cdn.leafscape.be/kokoro/Kokoro_web.woff2") format("woff2");
+  line-height: 1.75;
+  font-size: 16px;
+  user-select: none;
+}
+
+button,
+select,
+input,
+select,
+textarea {
+  font-family: Garamond, "Kokoro", "こころ明朝体", serif;
+  src: url("https://cdn.leafscape.be/kokoro/Kokoro_web.woff2") format("woff2");
+}
+
+/*パディングをサイズ内側にする処理*/
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*ーーーーーーーーーーー*/
+/*この下から記述*/
+/*ーーーーーーーーーーー*/
+.all {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: rgb(252, 248, 238);
+}
+
+.scrollable {
+  overflow: auto;
+  height: calc(100vh - 100px);
+}
+
+.a-box {
+  margin-bottom: 16px;
+}
+
+.tokoOpnbtn {
+  float: right;
+  margin-top: 16px;
+  margin-right: 64px;
+  font-size: 1.2em;
+}
+
+.title {
+  display: inline-block;
+  width: 20vw;
+}
+
+.input {
+  width: 60vw;
+}
+
+.tokobox {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.textarea {
+  border: 1px solid black;
+  width: 100%;
+}
+
+.tokobtn {
+  margin-left: auto;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  height: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.nikkiP {
+  padding: 16px;
+  padding-left: 64px;
+  margin-bottom: 16px;
+}
+
+#output {
+  display: flex;
+  flex-wrap: wrap; /*折返し指定*/
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  /* background-color: rgb(231, 252, 243); */
+  width: 40vw;
+  margin: 0 auto;
+}
+
+.toko {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: stretch;
+  grid-template-columns: 1fr; /* 1つの列を作成 */
+  padding: 16px 8px;
+  margin-bottom: 16px;
+}
+
+.toko:nth-child(odd) {
+  background-color: rgb(193, 209, 211);
+}
+
+.toko:nth-child(even) {
+  background-color: rgb(224, 228, 225);
+}
+
+.toko:hover {
+  transform: scale(1.05);
+  transition: 0.5s all;
+  z-index: 1000;
+  top: -10px;
+  background-color: rgb(253, 240, 232);
+}
+
+.pictureArea {
+  width: 100%;
+  height: auto;
+  padding-bottom: 50%; /* アスペクト比を 2:1 にする場合 */
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3); /* 黒色の透明度30% */
+}
+
+.pictureArea img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.textDataArea {
+  height: auto;
+  padding-left: 16px;
+}
+
+#docDateText {
+  white-space: pre-wrap;
+  /* ユーザーの改行位置を再現するためのコード */
+}
+
+#loginform {
+  margin-right: 128px;
+  margin-left: 128px;
+}
+
+button {
+  background-color: #d43041;
+  color: white;
+  border-radius: 3px;
+  font-size: 1.5em;
+  width: auto;
+}
+
+/*どの部分のcssに対して
+命令をしているのかコメントを
+記載しよう！
+---------------------*/
+
+/*
+---------------------*/
+
+/*
+---------------------*/
+
+/*
+---------------------*/
+
+/*
+---------------------*/
