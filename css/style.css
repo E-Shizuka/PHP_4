@@ -22,7 +22,7 @@ body {
 
 button,
 select,
-input,
+input:not([type="password"]),
 select,
 textarea {
   font-family: Garamond, "Kokoro", "こころ明朝体", serif;
@@ -223,6 +223,27 @@ button {
   border-radius: 3px;
   font-size: 1.5em;
   width: auto;
+}
+
+.button2 {
+  background-color: #d43041;
+  color: white;
+  border-radius: 3px;
+  font-size: 1em;
+  width: auto;
+}
+
+.registerform {
+  text-align: right;
+}
+
+.button3 {
+  background-color: #d43041;
+  color: white;
+  border-radius: 3px;
+  font-size: 1em;
+  width: auto;
+  margin-right: 64px;
 }
 
 /*どの部分のcssに対して

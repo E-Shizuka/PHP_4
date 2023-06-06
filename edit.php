@@ -71,6 +71,7 @@ $record = $stmt->fetch(PDO::FETCH_ASSOC);
         <button class="tokobtn">投稿</button>
       </div>
       <input type="hidden" name="id" value="<?= $record["id"] ?>">
+      <input type="hidden" name="old_img_name" value="<?= $record["img_name"] ?>">
     </fieldset>
   </form>
 

@@ -6,9 +6,12 @@ check_session_id();
 $pdo = connect_to_db();
 
 // SQL作成&実行
-$sql = 'SELECT * FROM data_table ORDER BY created_at DESC';
+$sql = "SELECT * FROM data_table WHERE username = :username";
 
 $stmt = $pdo->prepare($sql);
+
+// バインド変数の設定
+$stmt->bindValue(':username', $_SESSION['username'], PDO::PARAM_STR);
 
 // SQL実行（実行に失敗すると `sql error ...` が出力される）
 try {
@@ -20,56 +23,43 @@ try {
 
 //「ユーザが入力したデータ」を使用しないので読み込み時はバインド変数不要
 
-
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $output = "";
+
+// 投稿がない場合のフラグ
+$hasPosts = false;
+
 foreach ($result as $record) {
-  $output .= "
-    <div class=\"toko\">
-      ";
+    // 自分の投稿のみ表示
+    if ($record["username"] === $_SESSION['username']) {
+        $output .= "
+            <div class=\"toko\">
+            <div class=\"ed-btn\">
+                <button class=\"button2\"  onclick=\"location.href='edit.php?id={$record["id"]}'\">edit</button>
+                <button class=\"button2\"  onclick=\"location.href='delete.php?id={$record["id"]}'\">delete</button>
+            </div>
+            <div class=\"textDataArea\">{$record["username"]}さん</div>
+            <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
+            <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
+            <div class=\"pictureArea\">
+                <img src=\"/service/img/{$record["img_name"]}\">
+            </div>
+            </div>
+        ";
 
-  // if ($_SESSION['username'] == $record["username"]) {
-  //   $output .= "
-  //     <div class=\"ed-btn\">
-  //       <button onclick=\"location.href='edit.php?id={$record["id"]}'\">edit</button>
-  //       <button onclick=\"location.href='delete.php?id={$record["id"]}'\">delete</button>
-  //     </div>
-  //   ";
-  // }
-
-  $output .= "
-      <div class=\"textDataArea\">{$record["username"]}さん</div>
-      <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
-      <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
-      <div class=\"pictureArea\">
-        <img src=\"/service/img/{$record["img_name"]}\">
-      </div>
-    </div>
-  ";
+         // 投稿がある場合にフラグを立てる
+        $hasPosts = true;
+    } 
 }
 
-// foreach ($result as $record) {
-//   $output .= "
-//     <div class=\"toko\">
-//       <div class=\"ed-btn\">
-//         <button onclick=\"location.href='edit.php?id={$record["id"]}'\">edit</button>
-//         <button onclick=\"location.href='delete.php?id={$record["id"]}'\">delete</button>
-//       </div>
-//       <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
-//       <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
-//       <div class=\"pictureArea\">
-//         <img src=\"/service/img/{$record["img_name"]}\">
-//       </div>
-//     </div>
-//   ";
-// }
-
-// echo "<pre>"; 
-// //<pre>はオブジェクトを見やすく表示するためのタグ
-// var_dump($result);
-// echo "</pre>";
-// exit();
-
+// 投稿がない場合の表示
+if (!$hasPosts) {
+    $output .= "
+        <div class=\"toko\">
+        <p>投稿がありません。</p>
+        </div>
+    ";
+}
 
 ?>
 
@@ -81,11 +71,11 @@ foreach ($result as $record) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/reset.css" />
   <link rel="stylesheet" type="text/css" href="css/sanitize.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link
     href="https://fonts.googleapis.com/earlyaccess/kokoro.css"
     rel="stylesheet"
   />
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
   <title>blog</title>
 </head>
 
@@ -106,8 +96,8 @@ foreach ($result as $record) {
           </div>
         </div>
         <h1 class="nikkiP"><legend>おでかけ日記</legend></h1>
-        <button onclick="location.href='mypage.php'"
-        class="tokoOpnbtn">マイページ</button>
+        <button onclick="location.href='read.php'"
+        class="tokoOpnbtn">タイムライン</button>
         <p class="nikkiP">こんにちは<?=$_SESSION['username']?>さん</p>
     </div>
       <div class="scrollable">

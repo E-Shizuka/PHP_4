@@ -1,6 +1,3 @@
-<!-- ログインチェック関数を入れちゃだめ
-ログアウトしている状態の人が来るので無限ループになる -->
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -14,29 +11,31 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <title>おでかけ日記ログイン画面</title>
+
+  <title>新規ユーザ登録画面</title>
 </head>
 
 <body>
   <div class="registerform">
-  <button class="button3" onclick="location.href='register.php'">新規ユーザー登録はこちら</button>
+  <button class="button3" onclick="location.href='login.php'">すでに登録済の方はこちら</button>
   </div>
-  <form action="login_act.php" method="POST">
+  <form action="register_act.php" method="POST">
     <div id="loginform">
     <fieldset>
-      <legend>おでかけ日記ログイン画面</legend>
+      <legend>新規ユーザ登録画面</legend>
       <div class="input">
         username: <input type="text" name="username" class="textarea">
       </div>
       <div class="input">
-        password: <input type="password" name="password" class="textarea">
+        password: <input type="text" name="password" class="textarea">
       </div>
       <div class="tokobox">
-        <button class="tokobtn">Login</button>
+        <button class="tokobtn">登録</button>
       </div>
+      <p>新規ユーザー登録後、ログインページにてログインしてください。</p>
     </fieldset>
-    </div>
-  </form>
+  </div>
+</form>
 
 </body>
 

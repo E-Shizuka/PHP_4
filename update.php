@@ -25,6 +25,19 @@ $img_name_new = $uniqid . "_" . $img_name;
 // 画像を移動して保存
 if (move_uploaded_file($img_tmp, $upload . "/" . $img_name_new)) {
     echo "画像の保存に成功しました。";
+    //元の画像を削除するコード（どこかで転けたら作動させない工夫。全部うまく行った時だけ実行）
+    // 元の画像を削除
+    $old_img_name = $_POST['old_img_name'];
+    if ($old_img_name !== "") {
+      $old_img_path = $upload . "/" . $old_img_name;
+    if (file_exists($old_img_path)) {
+        unlink($old_img_path);
+        echo "元の画像を削除しました。";
+    } else {
+        echo "元の画像が見つかりません。";
+    }
+}
+
 } else {
     echo "画像の保存に失敗しました。";
 }

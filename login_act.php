@@ -16,11 +16,14 @@ $pdo = connect_to_db();
 
 // SQL実行
 //全ての条件満たすデータを抽出する。削除したアカウントのログインを弾くため、nullのもののみ抽出
-$sql='SELECT * FROM users_table WHERE username=:username AND password=:password AND deleted_at IS NULL';
+$sql='SELECT * FROM users_table WHERE username=:username AND deleted_at IS NULL';
+
+// $sql='SELECT * FROM users_table WHERE username=:username AND password=:password AND deleted_at IS NULL';
+
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-$stmt->bindValue(':password', $password, PDO::PARAM_STR);
+// $stmt->bindValue(':password', $password, PDO::PARAM_STR);
 
 try {
   $status = $stmt->execute();
@@ -34,7 +37,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 // var_dump($user);
 // exit();
 
-if (!$user) {
+if (!$user || !password_verify($password, $user['password'])) {
   echo "<p>ログイン情報に誤りがあります</p>";
   echo "<a href=login.php>ログイン</a>";
   //情報が一致しなかった時
