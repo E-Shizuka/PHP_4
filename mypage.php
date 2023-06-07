@@ -6,7 +6,7 @@ check_session_id();
 $pdo = connect_to_db();
 
 // SQL作成&実行
-$sql = "SELECT * FROM data_table WHERE username = :username";
+$sql = "SELECT * FROM data_table WHERE username = :username ORDER BY created_at DESC";
 
 $stmt = $pdo->prepare($sql);
 
@@ -42,7 +42,7 @@ foreach ($result as $record) {
             <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
             <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
             <div class=\"pictureArea\">
-                <img src=\"/service/img/{$record["img_name"]}\">
+                <img src=\"/service2/img/{$record["img_name"]}\">
             </div>
             </div>
         ";

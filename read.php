@@ -42,7 +42,7 @@ foreach ($result as $record) {
       <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
       <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
       <div class=\"pictureArea\">
-        <img src=\"/service/img/{$record["img_name"]}\">
+        <img src=\"/service2/img/{$record["img_name"]}\">
       </div>
     </div>
   ";
