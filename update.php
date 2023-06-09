@@ -26,13 +26,14 @@ $pdo = connect_to_db();
 
 if ($_FILES['img_name']['name'] !== '') {
   // 画像がアップロードされている場合
-  $img_name_new = $uniqid . "_" . $img_name;
+  // $img_name_new = $uniqid . "_" . $img_name;
 
   // 画像の保存処理
   $upload = "./img";
+  $img_tmp = $_FILES["img_name"]["tmp_name"];
+  $img_name = $_FILES["img_name"]["name"];
   $uniqid = uniqid();
   $img_name_new = $uniqid . "_" . $img_name;
-  $img_tmp = $_FILES["img_name"]["tmp_name"];
 
   if (move_uploaded_file($img_tmp, $upload . "/" . $img_name_new)) {
     echo "画像の保存に成功しました。";

@@ -28,6 +28,8 @@ try {
 
 //「ユーザが入力したデータ」を使用しないので読み込み時はバインド変数不要
 
+//投稿にいいねしてるかしてないかを集計
+
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $output = "";
