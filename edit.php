@@ -64,7 +64,8 @@ $record = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="title">画像：
         </div>
         <div class="input">
-        <input type="file" name="img_name" accept=".jpg,.jpeg,.png" required>
+        <input type="file" name="img_name" accept=".jpg,.jpeg,.png">
+        <!-- <input type="file" name="img_name" accept=".jpg,.jpeg,.png" required> -->
         </div>
       </div>
       <div class="tokobox">
