@@ -244,6 +244,9 @@ button {
 .zero-like {
   background-color: white;
   color: #d43041;
+  border-radius: 3px;
+  font-size: 1em;
+  width: auto;
 }
 
 .registerform {

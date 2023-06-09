@@ -15,14 +15,26 @@ $user_id = $_SESSION['user_id'];
 
 $sql = 'SELECT * FROM data_table LEFT OUTER JOIN (SELECT user_id, data_id, COUNT(id) AS like_count FROM like_table GROUP BY data_id) AS result_table ON data_table.id = result_table.data_id ORDER BY created_at DESC';
 
+$sql2 = 'SELECT data_id FROM like_table WHERE user_id=:user_id';
+
+// $sql2 = 'SELECT data_id FROM like_table WHERE user_id<>:user_id'; 
+
 
 $stmt = $pdo->prepare($sql);
+$stmt2 = $pdo->prepare($sql2);
+$stmt2->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
 // SQL実行（実行に失敗すると `sql error ...` が出力される）
 try {
   $status = $stmt->execute();
 } catch (PDOException $e) {
-  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  echo json_encode(["sql error1" => "{$e->getMessage()}"]);
+  exit();
+}
+try {
+  $status = $stmt2->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error2" => "{$e->getMessage()}"]);
   exit();
 }
 
@@ -32,36 +44,31 @@ try {
 
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+// //  var_dump($result);
+//  var_dump($result2);
+//  exit();
+
 $output = "";
 foreach ($result as $record) {
-  $output .= "
-    <div class=\"toko\">
-     <div class=\"textDataArea\"><a href=\"userpage.php?username={$record['username']}\">{$record['username']}さん</a></div>
-      <div><button class=\"button2 " . (($record['like_count'] == 0 && $record['user_id'] != $user_id) ? 'zero-like' : ($record['user_id'] == $user_id ? 'liked' : '')) . "\" onclick=\"location.href='like_create.php?user_id={$user_id}&data_id={$record['id']}'\">like{$record['like_count']}</button></div>
-      <div class=\"textDataArea\"><h2>{$record['title']}</h2></div>
-      <div class=\"textDataArea\" id=\"docDateText\">{$record['toko']}</div>
-      <div class=\"pictureArea\">
-        <img src=\"/service2/img/{$record['img_name']}\">
-      </div>
-    </div>
-  ";
-}
+    $output .= "
+      <div class=\"toko\" id=\"{$record['id']}\" value=\"{$record['id']}\">
 
-// foreach ($result as $record) {
-//   $output .= "
-//     <div class=\"toko\">
-//       <div class=\"ed-btn\">
-//         <button onclick=\"location.href='edit.php?id={$record["id"]}'\">edit</button>
-//         <button onclick=\"location.href='delete.php?id={$record["id"]}'\">delete</button>
-//       </div>
-//       <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
-//       <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
-//       <div class=\"pictureArea\">
-//         <img src=\"/service/img/{$record["img_name"]}\">
-//       </div>
-//     </div>
-//   ";
-// }
+      <div class=\"textDataArea\"><a href=\"userpage.php?username={$record['username']}\">{$record['username']}さん</a></div>
+        <div>
+          <button class=\"zero-like\" onclick=\"location.href='like_create.php?user_id={$user_id}&data_id={$record['id']}';\">like{$record['like_count']}</button>
+        </div>
+        <div class=\"textDataArea\"><h2>{$record['title']}</h2></div>
+        <div class=\"textDataArea\" id=\"docDateText\">{$record['toko']}</div>
+        <div class=\"pictureArea\">
+          <img src=\"/service2/img/{$record['img_name']}\">
+        </div>
+      </div>
+    ";
+  }
+// echo json_encode($result2);
+//↑このコードは同じファイルにjs書いている場合はechoしなくていい。別ファイルで作業する場合は必要。
 
 // echo "<pre>"; 
 // //<pre>はオブジェクトを見やすく表示するためのタグ
@@ -121,22 +128,48 @@ foreach ($result as $record) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
     function openModal() {
-  $("#myModal").css("display", "block");
-}
+      $("#myModal").css("display", "block");
+    }
 
-function closeModal() {
-  $("#myModal").css("display", "none");
-}
+    function closeModal() {
+      $("#myModal").css("display", "none");
+    }
 
-$(document).ready(function() {
-  $(".close").click(function() {
-    closeModal();
-    location.reload();
-  });
+    $(document).ready(function() {
+      $(".close").click(function() {
+        closeModal();
+        location.reload();
+      });
 
-});
+    });
+
+    $(document).ready(function() {
+      $(".close").click(function() {
+        closeModal();
+        location.reload();
+      });
+
+    });
+
+    const result_id = <?php echo json_encode($result2); ?>;
+    console.log(result_id);
+
+    const value = $('.toko').attr('value');
+    console.log(value);
+    console.log(result_id[0].data_id);
+
+    for (let result_id2 of result_id) {
+      console.log(result_id2.data_id);
+      const box_id = result_id2.data_id;
+      console.log($("#" + box_id).find("button"));
+      const findbtn = $("#" + box_id).find("button");
+      $(findbtn).removeClass("zero-like").addClass("button2");
+    } 
+    
+
 </script>
 
 </body>
 
 </html>
+
