@@ -4,6 +4,7 @@ include("functions.php");
 check_session_id();
 
 $pdo = connect_to_db();
+$username = $_GET['username'];
 
 // SQL作成&実行
 $sql = "SELECT * FROM data_table WHERE username = :username ORDER BY created_at DESC";
@@ -11,7 +12,8 @@ $sql = "SELECT * FROM data_table WHERE username = :username ORDER BY created_at 
 $stmt = $pdo->prepare($sql);
 
 // バインド変数の設定
-$stmt->bindValue(':username', $_SESSION['username'], PDO::PARAM_STR);
+
+$stmt->bindValue(':username', $username, PDO::PARAM_STR);
 
 // SQL実行（実行に失敗すると `sql error ...` が出力される）
 try {
@@ -30,14 +32,10 @@ $output = "";
 $hasPosts = false;
 
 foreach ($result as $record) {
-    // 自分の投稿のみ表示
-    if ($record["username"] === $_SESSION['username']) {
+    // 特定のユーザーの投稿のみ表示
+    if ($record["username"] === $_GET['username']) {
         $output .= "
             <div class=\"toko\">
-            <div class=\"ed-btn\">
-                <button class=\"button2\" onclick=\"openModal('edit.php?id={$record['id']}')\">edit</button>
-                <button class=\"button2\" onclick=\"confirmDelete({$record['id']})\">delete</button>
-            </div>
             <div class=\"textDataArea\">{$record['username']}さん</div>
             <div class=\"textDataArea\"><h2>{$record['title']}</h2></div>
             <div class=\"textDataArea\" id=\"docDateText\">{$record['toko']}</div>
@@ -90,11 +88,11 @@ if (!$hasPosts) {
       </div>
       <div class="a-box">
         <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <iframe id="modalContent"></iframe>
-      </div>
-    </div>
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <iframe id="modalContent"></iframe>
+  </div>
+</div>
         <!-- <div id="myModal" class="modal">
           <div class="modal-content">
             <span class="close">&times;</span> -->

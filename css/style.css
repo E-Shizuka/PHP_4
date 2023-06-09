@@ -43,6 +43,14 @@ textarea {
 /*ーーーーーーーーーーー*/
 /*この下から記述*/
 /*ーーーーーーーーーーー*/
+a {
+  color: rgb(65, 41, 13);
+}
+
+a:visited {
+  color: rgb(65, 41, 13);
+}
+
 .all {
   display: flex;
   justify-content: center;
@@ -175,13 +183,13 @@ iframe {
   background-color: rgb(224, 228, 225);
 }
 
-.toko:hover {
+/* .toko:hover {
   transform: scale(1.05);
-  transition: 0.5s all;
+  transition: 0.1s all;
   z-index: 1000;
   top: -10px;
   background-color: rgb(253, 240, 232);
-}
+} */
 
 .pictureArea {
   width: 100%;
@@ -231,6 +239,11 @@ button {
   border-radius: 3px;
   font-size: 1em;
   width: auto;
+}
+
+.zero-like {
+  background-color: white;
+  color: #d43041;
 }
 
 .registerform {

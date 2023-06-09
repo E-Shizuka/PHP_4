@@ -44,6 +44,7 @@ if (!$user || !password_verify($password, $user['password'])) {
   exit();
 } else {
   $_SESSION = array();
+  $_SESSION['user_id'] = $user['id'];
   $_SESSION['session_id'] = session_id();
   $_SESSION['is_admin'] = $user['is_admin'];
   $_SESSION['username'] = $user['username'];

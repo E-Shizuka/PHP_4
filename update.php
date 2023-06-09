@@ -64,5 +64,5 @@ try {
   exit();
 }
 
-header("Location:read.php");
+header("Location:edit.php");
 exit();

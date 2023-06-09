@@ -4,9 +4,17 @@ include("functions.php");
 check_session_id();
 
 $pdo = connect_to_db();
+$user_id = $_SESSION['user_id'];
 
 // SQL作成&実行
-$sql = 'SELECT * FROM data_table ORDER BY created_at DESC';
+// $sql = 'SELECT * FROM data_table ORDER BY created_at DESC';
+
+// $sql = 'SELECT * FROM data_table LEFT OUTER JOIN (SELECT data_id, COUNT(id) AS like_count FROM like_table GROUP BY data_id) AS result_table
+// ON data_table.id = result_table.data_id
+// ORDER BY created_at DESC';
+
+$sql = 'SELECT * FROM data_table LEFT OUTER JOIN (SELECT user_id, data_id, COUNT(id) AS like_count FROM like_table GROUP BY data_id) AS result_table ON data_table.id = result_table.data_id ORDER BY created_at DESC';
+
 
 $stmt = $pdo->prepare($sql);
 
@@ -26,23 +34,12 @@ $output = "";
 foreach ($result as $record) {
   $output .= "
     <div class=\"toko\">
-      ";
-
-  // if ($_SESSION['username'] == $record["username"]) {
-  //   $output .= "
-  //     <div class=\"ed-btn\">
-  //       <button onclick=\"location.href='edit.php?id={$record["id"]}'\">edit</button>
-  //       <button onclick=\"location.href='delete.php?id={$record["id"]}'\">delete</button>
-  //     </div>
-  //   ";
-  // }
-
-  $output .= "
-      <div class=\"textDataArea\">{$record["username"]}さん</div>
-      <div class=\"textDataArea\"><h2>{$record["title"]}</h2></div>
-      <div class=\"textDataArea\" id=\"docDateText\">{$record["toko"]}</div>
+     <div class=\"textDataArea\"><a href=\"userpage.php?username={$record['username']}\">{$record['username']}さん</a></div>
+      <div><button class=\"button2 " . (($record['like_count'] == 0 && $record['user_id'] != $user_id) ? 'zero-like' : ($record['user_id'] == $user_id ? 'liked' : '')) . "\" onclick=\"location.href='like_create.php?user_id={$user_id}&data_id={$record['id']}'\">like{$record['like_count']}</button></div>
+      <div class=\"textDataArea\"><h2>{$record['title']}</h2></div>
+      <div class=\"textDataArea\" id=\"docDateText\">{$record['toko']}</div>
       <div class=\"pictureArea\">
-        <img src=\"/service2/img/{$record["img_name"]}\">
+        <img src=\"/service2/img/{$record['img_name']}\">
       </div>
     </div>
   ";
@@ -87,13 +84,15 @@ foreach ($result as $record) {
   />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <title>blog</title>
+
 </head>
 
 <body>
   <div class="all">
     <div class="fixed-top">
       <div class="a-box">
-        <button onclick="openModal()" class="tokoOpnbtn">投稿する</button>
+        <!-- <button onclick="openModal()" class="tokoOpnbtn">投稿する</button> -->
+        <button onclick="openModal('input.php')" class="tokoOpnbtn">投稿する</button>
         <button onclick="location.href='logout.php'"
         class="tokoOpnbtn">logout</button>
       </div>
