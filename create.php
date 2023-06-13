@@ -38,22 +38,9 @@ $title = $_POST['title'];
 $toko = $_POST['toko'];
 $username = $_SESSION['username'];
 
-// DB接続処理
-
-// 各種項目設定
-$dbn ='mysql:dbname=service;charset=utf8mb4;port=3306;host=localhost';
-//'mysql:dbname=YOUR_DB_NAME;データベース名のみ更新
-$user = 'root';
-$pwd = '';
-//デプロイする時にuserとpwdを記載
 
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  echo json_encode(["db error" => "{$e->getMessage()}"]);
-  exit();
-}
+$pdo = connect_to_db();
 
 // 「dbError:...」が表示されたらdb接続でエラーが発生していることがわかる．
 

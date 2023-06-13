@@ -15,14 +15,13 @@ $user_id = $_SESSION['user_id'];
 
 $sql = 'SELECT * FROM data_table LEFT OUTER JOIN (SELECT user_id, data_id, COUNT(id) AS like_count FROM like_table GROUP BY data_id) AS result_table ON data_table.id = result_table.data_id ORDER BY created_at DESC';
 
-$sql2 = 'SELECT data_id FROM like_table WHERE user_id=:user_id';
+$sql2 = 'SELECT data_id FROM like_table WHERE user_id=user_id';
 
 // $sql2 = 'SELECT data_id FROM like_table WHERE user_id<>:user_id'; 
 
 
 $stmt = $pdo->prepare($sql);
 $stmt2 = $pdo->prepare($sql2);
-$stmt2->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
 // SQL実行（実行に失敗すると `sql error ...` が出力される）
 try {
@@ -31,6 +30,7 @@ try {
   echo json_encode(["sql error1" => "{$e->getMessage()}"]);
   exit();
 }
+
 try {
   $status = $stmt2->execute();
 } catch (PDOException $e) {
