@@ -2,6 +2,13 @@
 session_start();
 include("functions.php");
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['date'])) {
+    $yoyaku="";
+    $date = $_POST['date'];
+    $yoyaku .= "$date";
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,6 +28,9 @@ include("functions.php");
 
 <body>
     <div class="all">
+    <div class="a-box">
+        <button onclick="location.href='calendar.php'" class="tokoOpnbtn">戻る</button>
+    </div>
     <form action="reservation_calender.php" method="POST">
     <fieldset>
       <legend>予約入力画面</legend>
@@ -46,14 +56,14 @@ include("functions.php");
       <div class="tokobox2">
         <div class="input">
             予約日時
-        <input type="date" name="day" list="daylist" min="" class="textarea">
+        <input type="date" name="day" list="daylist" min="" class="textarea" value="<?= $yoyaku ?>" readonly>
         </div>
       </div>
       <div class="tokobox2">
-        <button class="tokobtn">予約</button>
-      </div>
+          <button class="tokobtn">予約</button>
+        </div>
     </fieldset>
-  </form>
+</form>
   </div>
 
 </body>

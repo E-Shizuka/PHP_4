@@ -143,14 +143,6 @@ foreach ($result as $record) {
 
     });
 
-    $(document).ready(function() {
-      $(".close").click(function() {
-        closeModal();
-        location.reload();
-      });
-
-    });
-
     const result_id = <?php echo json_encode($result2); ?>;
     console.log(result_id);
 
