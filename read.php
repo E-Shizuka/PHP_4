@@ -101,18 +101,22 @@ foreach ($result as $record) {
     <div class="fixed-top">
       <div class="a-box">
         <!-- <button onclick="openModal()" class="tokoOpnbtn">投稿する</button> -->
-        <button onclick="openModal('input.php')" class="tokoOpnbtn">投稿する</button>
         <button onclick="location.href='logout.php'"
         class="tokoOpnbtn">logout</button>
+        <button onclick="openModal('input.php')" class="tokoOpnbtn">投稿する</button>
+        <button onclick="openModal('calendar.php')" class="tokoOpnbtn">予約カレンダー</button>
+        <button onclick="location.href='kimono_read.php'"
+        class="tokoOpnbtn">着物一覧へ</button>
       </div>
       <div class="a-box">
         <div id="myModal" class="modal">
           <div class="modal-content">
             <span class="close">&times;</span>
             <!-- モーダルの内容をここに追加 -->
-            <iframe src="input.php"></iframe>
+            <iframe id="modalContent"></iframe>
           </div>
         </div>
+      
         <h1 class="nikkiP"><legend>おでかけ日記</legend></h1>
         <button onclick="location.href='mypage.php'"
         class="tokoOpnbtn">マイページ</button>
@@ -127,12 +131,14 @@ foreach ($result as $record) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    function openModal() {
+    function openModal(url) {
       $("#myModal").css("display", "block");
+      $("#modalContent").attr("src", url);
     }
 
     function closeModal() {
       $("#myModal").css("display", "none");
+      $("#modalContent").attr("src", "");
     }
 
     $(document).ready(function() {
@@ -140,7 +146,6 @@ foreach ($result as $record) {
         closeModal();
         location.reload();
       });
-
     });
 
     const result_id = <?php echo json_encode($result2); ?>;

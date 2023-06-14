@@ -1,0 +1,36 @@
+INSERT INTO kimono_pattern (id, pattern, created_at)
+VALUES (NULL, '松竹梅（しょうちくばい）', now()),
+       (NULL, '藤（ふじ）', now());
+
+INSERT INTO kimono_color (id, color, created_at)
+VALUES (NULL, '朱・赤', now()),
+       (NULL, 'ピンク', now()),
+       (NULL, 'オレンジ', now()),
+       (NULL, 'きいろ', now()),
+       (NULL, 'みどり', now()),
+       (NULL, 'あお、藍', now()),
+       (NULL, '紫', now()),
+       (NULL, '茶', now()),
+       (NULL, 'ベージュ', now()),
+       (NULL, '白', now()),
+       (NULL, 'グレー', now()),
+       (NULL, '黒', now()),
+       (NULL, 'その他、多彩', now());
+
+INSERT INTO kimono_cloth_color (id, cloth_color	, created_at)
+VALUES (NULL, '朱・赤', now()),
+       (NULL, 'ピンク', now()),
+       (NULL, 'オレンジ', now()),
+       (NULL, 'きいろ', now()),
+       (NULL, 'みどり', now()),
+       (NULL, 'あお、藍', now()),
+       (NULL, '紫', now()),
+       (NULL, '茶', now()),
+       (NULL, 'ベージュ', now()),
+       (NULL, '白', now()),
+       (NULL, 'グレー', now()),
+       (NULL, '黒', now()),
+       (NULL, 'その他、多彩', now());
+
+SELECT * FROM kimono_search LEFT OUTER JOIN kimono_pattern
+ON  kimono_search.pattern_id = kimono_pattern.id

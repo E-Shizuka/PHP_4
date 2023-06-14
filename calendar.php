@@ -55,7 +55,7 @@ function reservation($date, $reservation_day, $holidayData){
         // $reservation_day = "<br/>" . "<span>" . "予約できません" . "</span>";
         return $reservation_day;
     } elseif (strtotime($date) > strtotime($today)) {
-        $reservation_day = "<br/>" . "<button class=\"button3\" onclick=\"getReservationInfo('$date')\">" . "予約する" . "</button>";
+        $reservation_day = "<br/>" . "<button class=\"button4\" onclick=\"getReservationInfo('$date')\">" . "予約する" . "</button>";
         return $reservation_day;
     } else {
         $reservation_day = "";
@@ -195,25 +195,36 @@ for($day = 1; $day <= $day_count; $day++, $youbi++){
     <!--  -->
 </head>
 <body>
-    <div class="container">
-        <h2>予約入力画面</h2>
-        <h3><a href="?ym=<?php echo $prev; ?>">&lt;</a>  <?php echo $html_title; ?>  <a href="?ym=<?php echo $next; ?>">&gt;</a></h3>
-        <table class="table table-bordered">
-            <tr>
-                <th>日</th>
-                <th>月</th>
-                <th>火</th>
-                <th>水</th>
-                <th>木</th>
-                <th>金</th>
-                <th>土</th>
-           
-             <?php
-                foreach ($weeks as $week) {
-                    echo $week;
-                }
-            ?>
-        </table>
+    <div class="all">
+        <div class="a-box">
+            <?php if (!isset($_SESSION['session_id'])): ?>
+            <button onclick="location.href='login.php'" class="tokoOpnbtn">トップ画面へ</button>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['session_id'])): ?>
+            <button onclick="location.href='read.php'" class="tokoOpnbtn">おでかけ日記へ</button>
+            <?php endif; ?>
+        </div>
+        <div class="container">
+            <h2>予約入力画面</h2>
+            <p>予約時間はいずれも15:00〜16:30とさせていただきます。</p>
+            <h3><a href="?ym=<?php echo $prev; ?>">&lt;</a>  <?php echo $html_title; ?>  <a href="?ym=<?php echo $next; ?>">&gt;</a></h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>日</th>
+                    <th>月</th>
+                    <th>火</th>
+                    <th>水</th>
+                    <th>木</th>
+                    <th>金</th>
+                    <th>土</th>
+            
+                <?php
+                    foreach ($weeks as $week) {
+                        echo $week;
+                    }
+                ?>
+            </table>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>

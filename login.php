@@ -14,12 +14,18 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <title>おでかけ日記ログイン画面</title>
+  <title>着物ファン</title>
 </head>
 
 <body>
+  <div class="welcome">
+  <h2>着物の世界へようこそ！</h2>
+  <p>着物の一覧は<button onclick="location.href= 'kimono_read.php'" class="button4">こちら</button>からどうぞ</p>
+  <p>着物苑へのオンライン訪問の予約は<button onclick="location.href= 'calendar.php'" class="button4">こちら</button>からどうぞ</p>
+  </div>
+  <div class="imgArea"></div>
   <div class="registerform">
-  <button class="button3" onclick="location.href='register.php'">新規ユーザー登録はこちら</button>
+  <button class="button5" onclick="location.href='register.php'">新規ユーザー登録はこちら</button>
   </div>
   <form action="login_act.php" method="POST">
     <div id="loginform">

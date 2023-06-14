@@ -84,17 +84,19 @@ if (!$hasPosts) {
     <div class="fixed-top">
       <div class="a-box">
         <!-- <button onclick="openModal()" class="tokoOpnbtn">投稿する</button> -->
-        <button onclick="openModal('input.php')" class="tokoOpnbtn">投稿する</button>
         <button onclick="location.href='logout.php'"
         class="tokoOpnbtn">logout</button>
+        <button onclick="openModal('input.php')" class="tokoOpnbtn">投稿する</button>
+        <button onclick="location.href='kimono_read.php'"
+          class="tokoOpnbtn">着物一覧へ</button>
       </div>
       <div class="a-box">
         <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <iframe id="modalContent"></iframe>
-      </div>
-    </div>
+          <div class="modal-content">
+            <span span class="close">&times;</span>
+            <iframe id="modalContent"></iframe>
+          </div>
+        </div>
         <!-- <div id="myModal" class="modal">
           <div class="modal-content">
             <span class="close">&times;</span> -->
