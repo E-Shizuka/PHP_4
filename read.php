@@ -104,7 +104,11 @@ foreach ($result as $record) {
         <button onclick="location.href='logout.php'"
         class="tokoOpnbtn">logout</button>
         <button onclick="openModal('input.php')" class="tokoOpnbtn">投稿する</button>
-        <button onclick="openModal('calendar.php')" class="tokoOpnbtn">予約カレンダー</button>
+        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
+          <button onclick="location.href='calendar.php'" class="tokoOpnbtn">予約カレンダー</button>
+        <?php else: ?>
+          <button onclick="openModal('calendar.php')" class="tokoOpnbtn">予約カレンダー</button>
+        <?php endif; ?>
         <button onclick="location.href='kimono_read.php'"
         class="tokoOpnbtn">着物一覧へ</button>
       </div>

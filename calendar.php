@@ -197,6 +197,9 @@ for($day = 1; $day <= $day_count; $day++, $youbi++){
 <body>
     <div class="all">
         <div class="a-box">
+            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
+          <button onclick="location.href='calendar_read.php'" class="tokoOpnbtn">予約確認</button>
+        <?php endif; ?>
             <?php if (!isset($_SESSION['session_id'])): ?>
             <button onclick="location.href='login.php'" class="tokoOpnbtn">トップ画面へ</button>
             <?php endif; ?>

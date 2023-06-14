@@ -4,9 +4,7 @@ include('functions.php');
 $pdo = connect_to_db();
 
 
-// $sql = 'SELECT * FROM kimono_search ORDER BY created_at DESC';
-
-$sql = 'SELECT * FROM kimono_search LEFT OUTER JOIN kimono_pattern ON kimono_search.pattern_id = kimono_pattern.id ORDER BY kimono_search.created_at DESC';
+$sql = 'SELECT * FROM reservation_table ORDER BY day ASC';
 
 
 $stmt = $pdo->prepare($sql);
@@ -27,12 +25,12 @@ $output = "";
 foreach ($result as $record) {
     $output .= "
       <div class=\"ichiran\" id=\"{$record['id']}\">
-
-        <div class=\"textDataArea\"><h3>{$record['pattern']}</h3>
-        <p>{$record['gofuku']}</p></div>
-      
-        <div class=\"pictureArea\">
-          <img src=\"{$record['img_name']}\">
+        <div class=\"textDataArea\">
+          <h3>予約日：{$record['day']}</h3>
+          <p>名前：{$record['name']}</p>
+          <p>電話番号：{$record['number']}</p>
+          <p>メール：{$record['email']}</p>
+          <p>登録日時：{$record['created_at']}</p>
         </div>
       </div>
     ";
@@ -54,7 +52,7 @@ foreach ($result as $record) {
     rel="stylesheet"
   />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <title>着物一覧</title>
+  <title>予約一覧</title>
 </head>
 
 <body>
