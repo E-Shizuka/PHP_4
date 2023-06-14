@@ -206,6 +206,8 @@ for($day = 1; $day <= $day_count; $day++, $youbi++){
             <?php if (isset($_SESSION['session_id'])): ?>
             <button onclick="location.href='read.php'" class="tokoOpnbtn">おでかけ日記へ</button>
             <?php endif; ?>
+            <button onclick="location.href='kimono_read.php'"
+        class="tokoOpnbtn">着物一覧へ</button>
         </div>
         <div class="container">
             <h2>予約入力画面</h2>

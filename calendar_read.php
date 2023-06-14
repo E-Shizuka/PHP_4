@@ -76,10 +76,6 @@ foreach ($result as $record) {
           class="tokoOpnbtn">logout</button>
         <?php endif; ?>
         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
-          <button onclick="openModal('kimono_input.php')" class="tokoOpnbtn">着物を登録する</button>
-        <?php endif; ?>
-        <button onclick="openModal('kimono_search.php')" class="tokoOpnbtn">着物を検索する</button>
-        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
           <button onclick="location.href='calendar.php'" class="tokoOpnbtn">予約カレンダー</button>
         <?php else: ?>
           <button onclick="openModal('calendar.php')" class="tokoOpnbtn">予約カレンダー</button>
@@ -87,6 +83,7 @@ foreach ($result as $record) {
         <?php if (!isset($_SESSION['session_id'])): ?>
           <button onclick="location.href='login.php'" class="tokoOpnbtn">トップ画面へ</button>
         <?php endif; ?>
+        
         <?php if (isset($_SESSION['session_id'])): ?>
           <button onclick="location.href='read.php'" class="tokoOpnbtn">おでかけ日記へ</button>
         <?php endif; ?>
